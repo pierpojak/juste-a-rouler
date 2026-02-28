@@ -60,9 +60,9 @@ export function Header() {
             <Link href="/" className="flex items-center shrink-0 group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/logo/logo-jar-text.png"
+                src="/images/logo/logo-jar-complet.png"
                 alt="Juste à Rouler"
-                className="h-14 w-auto"
+                className="h-12 w-auto"
               />
             </Link>
 
