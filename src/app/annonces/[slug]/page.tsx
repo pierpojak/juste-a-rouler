@@ -255,11 +255,11 @@ export default function VehicleDetailPage() {
 
               <div className="mt-6 space-y-3">
                 <a
-                  href="tel:0800XXXX"
+                  href="tel:0800820820"
                   className="flex items-center justify-center gap-2 w-full bg-jar-orange text-jar-black font-bold py-3.5 rounded-xl hover:bg-jar-orange-hover transition-colors"
                 >
                   <Phone className="w-5 h-5" />
-                  Appeler — 0 800 XXXX
+                  Appeler — 0 800 820 820
                 </a>
                 <Link
                   href="/contact"
