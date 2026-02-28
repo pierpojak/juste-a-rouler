@@ -39,11 +39,11 @@ export function Footer() {
             </p>
             <div className="flex flex-col gap-3 text-sm text-jar-gray-light">
               <a
-                href="tel:+33600000000"
+                href="tel:0800XXXX"
                 className="flex items-center gap-2 hover:text-jar-orange transition-colors"
               >
                 <Phone className="w-4 h-4 text-jar-orange" />
-                06 00 00 00 00
+                <span>0 800 XXXX <span className="text-jar-gray text-xs font-normal">— numéro gratuit</span></span>
               </a>
               <a
                 href="mailto:contact@justearouler.fr"
@@ -54,7 +54,7 @@ export function Footer() {
               </a>
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-jar-orange mt-0.5" />
-                <span>Showroom Juste à Rouler, France</span>
+                <span>1 rue de la communication,<br />59175 Templemars</span>
               </div>
             </div>
           </div>

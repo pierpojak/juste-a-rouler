@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 import {
   Compass,
@@ -26,12 +26,12 @@ import {
    ROUE LIBRE BY JUSTE A ROULER  --  Lifestyle Van Sub-brand
    ============================================================ */
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" },
+    transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" as const },
   }),
 };
 

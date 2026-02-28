@@ -1,12 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowLeft, Shield, Calendar, Gauge, Fuel, Settings, MapPin, Award,
-  CheckCircle, Phone, FileText, CreditCard, ChevronRight,
+  CheckCircle, Phone, FileText, CreditCard, ChevronRight, ChevronLeft,
 } from "lucide-react";
 import { getVehicleBySlug, labelColors, typeLabels } from "@/lib/vehicles";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ import { cn } from "@/lib/utils";
 export default function VehicleDetailPage() {
   const params = useParams();
   const vehicle = getVehicleBySlug(params.slug as string);
+  const [activeImage, setActiveImage] = useState(0);
 
   if (!vehicle) {
     return (
@@ -28,6 +30,10 @@ export default function VehicleDetailPage() {
 
   const label = labelColors[vehicle.label];
   const type = typeLabels[vehicle.type];
+  const hasMultipleImages = vehicle.images.length > 1;
+
+  const goPrev = () => setActiveImage((i) => (i - 1 + vehicle.images.length) % vehicle.images.length);
+  const goNext = () => setActiveImage((i) => (i + 1) % vehicle.images.length);
 
   return (
     <div className="min-h-screen bg-jar-offwhite pt-24">
@@ -48,26 +54,90 @@ export default function VehicleDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left - Image + details */}
           <div className="lg:col-span-2 space-y-6">
+
+            {/* Galerie principale */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-jar-anthracite"
+              className="space-y-3"
             >
-              <Image
-                src={vehicle.image}
-                alt={`${vehicle.brand} ${vehicle.model}`}
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute top-4 left-4 flex gap-2">
-                <span className={cn("px-3 py-1.5 rounded-lg text-sm font-bold text-white", type.color)}>
-                  {type.label}
-                </span>
-                <span className={cn("px-3 py-1.5 rounded-lg text-sm font-bold", label.bg, label.text)}>
-                  Label {label.label}
-                </span>
+              {/* Image principale */}
+              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-jar-anthracite group">
+                <Image
+                  key={activeImage}
+                  src={vehicle.images[activeImage]}
+                  alt={`${vehicle.brand} ${vehicle.model} — photo ${activeImage + 1}`}
+                  fill
+                  className="object-cover transition-opacity duration-300"
+                  priority={activeImage === 0}
+                />
+
+                {/* Badges */}
+                <div className="absolute top-4 left-4 flex gap-2">
+                  <span className={cn("px-3 py-1.5 rounded-lg text-sm font-bold text-white", type.color)}>
+                    {type.label}
+                  </span>
+                  <span className={cn("px-3 py-1.5 rounded-lg text-sm font-bold", label.bg, label.text)}>
+                    Label {label.label}
+                  </span>
+                </div>
+
+                {/* Compteur photos */}
+                {hasMultipleImages && (
+                  <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg">
+                    {activeImage + 1} / {vehicle.images.length}
+                  </div>
+                )}
+
+                {/* Flèches navigation */}
+                {hasMultipleImages && (
+                  <>
+                    <button
+                      onClick={goPrev}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/80 backdrop-blur-sm text-white rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
+                      aria-label="Photo précédente"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      onClick={goNext}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/80 backdrop-blur-sm text-white rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
+                      aria-label="Photo suivante"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </>
+                )}
               </div>
+
+              {/* Miniatures */}
+              {hasMultipleImages && (
+                <div className={cn(
+                  "grid gap-2",
+                  vehicle.images.length <= 4 ? "grid-cols-4" :
+                  vehicle.images.length <= 5 ? "grid-cols-5" : "grid-cols-6"
+                )}>
+                  {vehicle.images.map((img, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveImage(i)}
+                      className={cn(
+                        "relative aspect-video rounded-xl overflow-hidden transition-all duration-200",
+                        i === activeImage
+                          ? "ring-2 ring-jar-orange ring-offset-2 ring-offset-jar-offwhite"
+                          : "opacity-55 hover:opacity-90"
+                      )}
+                    >
+                      <Image
+                        src={img}
+                        alt={`${vehicle.brand} ${vehicle.model} — miniature ${i + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </motion.div>
 
             {/* Description */}
@@ -154,7 +224,7 @@ export default function VehicleDetailPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="bg-white rounded-2xl p-6 sticky top-28"
+              className="bg-white rounded-2xl p-6 sticky top-36"
             >
               <h1 className="text-2xl font-extrabold text-jar-black leading-tight">
                 {vehicle.brand} {vehicle.model}
@@ -185,11 +255,11 @@ export default function VehicleDetailPage() {
 
               <div className="mt-6 space-y-3">
                 <a
-                  href="tel:+33600000000"
+                  href="tel:0800XXXX"
                   className="flex items-center justify-center gap-2 w-full bg-jar-orange text-jar-black font-bold py-3.5 rounded-xl hover:bg-jar-orange-hover transition-colors"
                 >
                   <Phone className="w-5 h-5" />
-                  Appeler
+                  Appeler — 0 800 XXXX
                 </a>
                 <Link
                   href="/contact"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 import {
   Banknote,
@@ -20,12 +20,12 @@ import {
 
 /* ───────── animation helpers ───────── */
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.55, ease: "easeOut" },
+    transition: { delay: i * 0.12, duration: 0.55, ease: "easeOut" as const },
   }),
 };
 
