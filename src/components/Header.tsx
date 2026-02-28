@@ -62,7 +62,7 @@ export function Header() {
               <img
                 src="/images/logo/logo-jar.png"
                 alt="Juste à Rouler"
-                className="h-10 w-auto"
+                className="h-48 w-auto"
               />
             </Link>
 
