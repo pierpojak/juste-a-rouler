@@ -54,15 +54,15 @@ export function Header() {
         )}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-48 items-center justify-between">
+          <div className="flex h-20 items-center justify-between">
 
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0 group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/logo/logo-jar.png"
+                src="/images/logo/logo-jar-text.png"
                 alt="Juste à Rouler"
-                className="h-48 w-auto"
+                className="h-14 w-auto"
               />
             </Link>
 
@@ -161,7 +161,7 @@ export function Header() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="xl:hidden fixed inset-0 top-48 bg-jar-black z-40 overflow-y-auto"
+            className="xl:hidden fixed inset-0 top-20 bg-jar-black z-40 overflow-y-auto"
           >
             <nav className="flex flex-col px-6 py-8 gap-1">
               {navLinks.map((link) =>
