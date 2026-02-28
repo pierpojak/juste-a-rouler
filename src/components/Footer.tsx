@@ -39,11 +39,11 @@ export function Footer() {
             </p>
             <div className="flex flex-col gap-3 text-sm text-jar-gray-light">
               <a
-                href="tel:0800XXXX"
+                href="tel:0800820820"
                 className="flex items-center gap-2 hover:text-jar-orange transition-colors"
               >
                 <Phone className="w-4 h-4 text-jar-orange" />
-                <span>0 800 XXXX <span className="text-jar-gray text-xs font-normal">— numéro gratuit</span></span>
+                <span>0 800 820 820 <span className="text-jar-gray text-xs font-normal">— numéro gratuit</span></span>
               </a>
               <a
                 href="mailto:contact@justearouler.fr"

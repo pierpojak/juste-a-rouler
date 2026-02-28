@@ -132,9 +132,16 @@ export default function RoueLibrePage() {
       {/* ============================================================
           1. HERO
           ============================================================ */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-jar-black">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/roue-libre-bg.png')" }}
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-jar-black/75" />
         {/* Warm gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-br from-jar-orange/10 via-jar-black to-jar-orange/5" />
+        <div className="absolute inset-0 bg-gradient-to-br from-jar-orange/10 via-transparent to-jar-orange/5" />
         <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-jar-orange/8 rounded-full blur-[120px] -translate-y-1/3 translate-x-1/4" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-jar-orange/6 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4" />
 
@@ -664,7 +671,7 @@ export default function RoueLibrePage() {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a
-                href="tel:+33600000000"
+                href="tel:0800820820"
                 className="flex items-center gap-2 border-2 border-white/20 text-white font-bold px-10 py-4 rounded-xl text-lg hover:border-jar-orange hover:text-jar-orange transition-all duration-200"
               >
                 <Phone className="w-5 h-5" />

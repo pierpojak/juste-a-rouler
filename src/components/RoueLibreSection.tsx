@@ -6,9 +6,15 @@ import { Compass, Sun, MapPin, ArrowRight } from "lucide-react";
 
 export function RoueLibreSection() {
   return (
-    <section className="relative py-24 overflow-hidden bg-gradient-to-br from-jar-anthracite via-jar-black to-jar-anthracite">
-      {/* Subtle warm overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-jar-orange/5 via-transparent to-jar-orange/5" />
+    <section className="relative py-24 overflow-hidden">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/roue-libre-bg.png')" }}
+      />
+      {/* Dark overlay to keep text readable */}
+      <div className="absolute inset-0 bg-jar-black/72" />
+      <div className="absolute inset-0 bg-gradient-to-r from-jar-orange/8 via-transparent to-jar-orange/5" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

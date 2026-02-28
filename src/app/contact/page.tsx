@@ -77,7 +77,7 @@ export default function ContactPage() {
                         type="tel"
                         required
                         className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-jar-orange transition-colors"
-                        placeholder="0 800 XXXX"
+                        placeholder="0 800 820 820"
                       />
                     </div>
                   </div>
@@ -139,12 +139,12 @@ export default function ContactPage() {
             >
               <h3 className="text-lg font-bold text-jar-black mb-4">Coordonnées</h3>
               <div className="space-y-4">
-                <a href="tel:0800XXXX" className="flex items-center gap-3 text-sm text-jar-gray hover:text-jar-orange transition-colors">
+                <a href="tel:0800820820" className="flex items-center gap-3 text-sm text-jar-gray hover:text-jar-orange transition-colors">
                   <div className="w-10 h-10 bg-jar-orange/10 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Phone className="w-5 h-5 text-jar-orange" />
                   </div>
                   <div>
-                    <p className="font-semibold text-jar-black">0 800 XXXX</p>
+                    <p className="font-semibold text-jar-black">0 800 820 820</p>
                     <p className="text-xs text-jar-gray">Numéro gratuit</p>
                   </div>
                 </a>
@@ -189,7 +189,7 @@ export default function ContactPage() {
                 Appelez directement, on décroche.
               </p>
               <a
-                href="tel:0800XXXX"
+                href="tel:0800820820"
                 className="inline-flex items-center gap-2 bg-jar-orange text-jar-black font-bold px-6 py-3 rounded-xl hover:bg-jar-orange-hover transition-colors"
               >
                 <Phone className="w-5 h-5" />

@@ -9,7 +9,7 @@ export function HeroSection() {
     <section className="relative min-h-screen flex items-center overflow-hidden bg-jar-black">
       {/* Background image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-35"
         style={{ backgroundImage: "url('/images/vehicules/range-rover-sport/main.png')" }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-jar-black via-jar-black/90 to-jar-black/60" />

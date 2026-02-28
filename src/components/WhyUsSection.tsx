@@ -66,8 +66,8 @@ export function WhyUsSection() {
               <span className="text-jar-orange">nous choisir</span>
             </h2>
             <p className="text-jar-gray text-lg max-w-2xl mx-auto">
-              Un seul objectif : que vous n&apos;ayez plus rien à gérer.
-              Professionnel, transparent, complet.
+              On ne vend pas des voitures. On simplifie tout le parcours.
+              Bienvenue dans l&apos;univers Juste à Rouler.
             </p>
           </motion.div>
         </div>

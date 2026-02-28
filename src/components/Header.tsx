@@ -44,26 +44,6 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      {/* Barre info — adresse + téléphone */}
-      <div className="bg-jar-anthracite border-b border-white/5 hidden xl:block">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-9 items-center justify-between">
-            <div className="flex items-center gap-2 text-xs text-jar-gray-light">
-              <MapPin className="w-3 h-3 text-jar-orange flex-shrink-0" />
-              <span>1 rue de la communication, 59175 Templemars</span>
-            </div>
-            <a
-              href="tel:0800XXXX"
-              className="flex items-center gap-2 text-xs hover:text-jar-orange transition-colors group"
-            >
-              <Phone className="w-3 h-3 text-jar-orange" />
-              <span className="font-bold text-white group-hover:text-jar-orange">0 800 XXXX</span>
-              <span className="text-jar-gray">— numéro gratuit</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
       {/* Barre de navigation principale */}
       <div
         className={cn(
@@ -78,10 +58,12 @@ export function Header() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0 group">
-              <span className="text-2xl font-extrabold leading-none tracking-tight">
-                <span className="text-jar-orange">Juste</span>
-                <span className="text-white group-hover:text-white/90 transition-colors"> à rouler</span>
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/logo/logo-jar.svg"
+                alt="Juste à Rouler"
+                className="h-10 w-auto"
+              />
             </Link>
 
             {/* Nav desktop */}
@@ -142,12 +124,12 @@ export function Header() {
             {/* CTA desktop */}
             <div className="hidden xl:flex items-center gap-4">
               <a
-                href="tel:0800XXXX"
+                href="tel:0800820820"
                 className="flex items-center gap-2 text-sm text-white/70 hover:text-jar-orange transition-colors"
               >
                 <Phone className="w-4 h-4 text-jar-orange" />
                 <div className="hidden 2xl:flex flex-col leading-none">
-                  <span className="font-bold text-white text-sm">0 800 XXXX</span>
+                  <span className="font-bold text-white text-sm">0 800 820 820</span>
                   <span className="text-[10px] text-jar-gray mt-0.5">numéro gratuit</span>
                 </div>
               </a>
@@ -233,10 +215,10 @@ export function Header() {
 
               {/* Coordonnées mobile */}
               <div className="mt-4 pt-4 border-t border-white/10 px-4 space-y-3">
-                <a href="tel:0800XXXX" className="flex items-center gap-3 text-white">
+                <a href="tel:0800820820" className="flex items-center gap-3 text-white">
                   <Phone className="w-4 h-4 text-jar-orange" />
                   <div>
-                    <p className="font-bold text-sm">0 800 XXXX</p>
+                    <p className="font-bold text-sm">0 800 820 820</p>
                     <p className="text-xs text-jar-gray">numéro gratuit</p>
                   </div>
                 </a>
