@@ -7,13 +7,13 @@ import { ArrowRight, Shield, Search } from "lucide-react";
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-jar-black">
-      {/* Background image */}
+      {/* Background image — showroom Peugeot 2008 */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-35"
-        style={{ backgroundImage: "url('/images/vehicules/range-rover-sport/main.png')" }}
+        className="absolute inset-0 bg-no-repeat opacity-60"
+        style={{ backgroundImage: "url('/images/hero-bg.png')", backgroundSize: "90%", backgroundPosition: "right center" }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-jar-black via-jar-black/90 to-jar-black/60" />
-      <div className="absolute inset-0 bg-gradient-to-t from-jar-black via-transparent to-jar-black/50" />
+      <div className="absolute inset-0 bg-gradient-to-r from-jar-black via-jar-black/80 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-jar-black via-jar-black/30 to-jar-black/40" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-32 w-full">
         <div className="max-w-3xl">

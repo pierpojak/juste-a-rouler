@@ -2,9 +2,9 @@
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Search, SlidersHorizontal, X, ChevronDown, Car } from "lucide-react";
-import { vehicles, getUniqueBrands } from "@/lib/vehicles";
-import type { VehicleType, EnergyType, GearboxType, BodyType, LabelLevel } from "@/lib/vehicles";
+import { Search, SlidersHorizontal, X, ChevronDown, Car, Loader2 } from "lucide-react";
+import type { EnergyType, GearboxType, BodyType } from "@/lib/vehicles";
+import { useVehicles } from "@/hooks/useVehicles";
 import { VehicleCard } from "@/components/VehicleCard";
 import { cn } from "@/lib/utils";
 
@@ -28,19 +28,6 @@ const bodyOptions: { value: BodyType; label: string }[] = [
   { value: "van", label: "Van" },
   { value: "utilitaire", label: "Utilitaire" },
   { value: "moto", label: "Moto" },
-];
-
-const typeOptions: { value: VehicleType; label: string }[] = [
-  { value: "stock", label: "En stock" },
-  { value: "mandat", label: "Dépôt-vente" },
-  { value: "budget", label: "Gamme Essentiel" },
-];
-
-const labelOptions: { value: LabelLevel; label: string }[] = [
-  { value: "essentiel", label: "Essentiel" },
-  { value: "garanti", label: "Garanti" },
-  { value: "premium", label: "Premium" },
-  { value: "sport", label: "Sport" },
 ];
 
 const sortOptions = [
@@ -81,18 +68,21 @@ function FilterSelect({
 }
 
 export default function AnnoncesPage() {
+  const { vehicles, loading } = useVehicles();
   const [search, setSearch] = useState("");
   const [brand, setBrand] = useState("");
   const [energy, setEnergy] = useState("");
   const [gearbox, setGearbox] = useState("");
   const [body, setBody] = useState("");
-  const [type, setType] = useState("");
-  const [labelFilter, setLabelFilter] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [sort, setSort] = useState("price-asc");
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const brands = getUniqueBrands();
+  // Marques dynamiques depuis les données Airtable
+  const brands = useMemo(
+    () => [...new Set(vehicles.map((v) => v.brand))].sort(),
+    [vehicles]
+  );
 
   const filtered = useMemo(() => {
     let result = vehicles.filter((v) => v.available);
@@ -110,8 +100,6 @@ export default function AnnoncesPage() {
     if (energy) result = result.filter((v) => v.energy === energy);
     if (gearbox) result = result.filter((v) => v.gearbox === gearbox);
     if (body) result = result.filter((v) => v.body === body);
-    if (type) result = result.filter((v) => v.type === type);
-    if (labelFilter) result = result.filter((v) => v.label === labelFilter);
     if (maxPrice) result = result.filter((v) => v.price <= parseInt(maxPrice));
 
     // Sort
@@ -131,17 +119,15 @@ export default function AnnoncesPage() {
     }
 
     return result;
-  }, [search, brand, energy, gearbox, body, type, labelFilter, maxPrice, sort]);
+  }, [vehicles, search, brand, energy, gearbox, body, maxPrice, sort]);
 
-  const activeFiltersCount = [brand, energy, gearbox, body, type, labelFilter, maxPrice].filter(Boolean).length;
+  const activeFiltersCount = [brand, energy, gearbox, body, maxPrice].filter(Boolean).length;
 
   const clearFilters = () => {
     setBrand("");
     setEnergy("");
     setGearbox("");
     setBody("");
-    setType("");
-    setLabelFilter("");
     setMaxPrice("");
     setSearch("");
   };
@@ -236,18 +222,6 @@ export default function AnnoncesPage() {
                 onChange={setBody}
                 options={bodyOptions}
               />
-              <FilterSelect
-                label="Type d'offre"
-                value={type}
-                onChange={setType}
-                options={typeOptions}
-              />
-              <FilterSelect
-                label="Niveau label"
-                value={labelFilter}
-                onChange={setLabelFilter}
-                options={labelOptions}
-              />
               <div className="relative">
                 <select
                   value={maxPrice}
@@ -298,7 +272,12 @@ export default function AnnoncesPage() {
         </div>
 
         {/* Grid */}
-        {filtered.length > 0 ? (
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-20">
+            <Loader2 className="w-10 h-10 text-jar-orange animate-spin mb-4" />
+            <p className="text-jar-gray-light text-sm">Chargement des véhicules...</p>
+          </div>
+        ) : filtered.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((vehicle, i) => (
               <motion.div

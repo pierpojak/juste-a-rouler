@@ -1,16 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { MapPin, Gauge, Calendar, Fuel, Shield } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { MapPin, Gauge, Calendar, Fuel } from "lucide-react";
 import type { Vehicle } from "@/lib/vehicles";
-import { labelColors, typeLabels } from "@/lib/vehicles";
 
 export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
-  const label = labelColors[vehicle.label];
-  const type = typeLabels[vehicle.type];
-
   return (
     <Link
       href={`/annonces/${vehicle.slug}`}
@@ -18,26 +12,12 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
     >
       {/* Image */}
       <div className="relative aspect-[16/10] overflow-hidden bg-jar-anthracite">
-        <Image
+        <img
           src={vehicle.image}
           alt={`${vehicle.brand} ${vehicle.model}`}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
         />
-        {/* Badges overlay */}
-        <div className="absolute top-3 left-3 flex gap-2">
-          <span className={cn("px-2.5 py-1 rounded-lg text-xs font-bold text-white", type.color)}>
-            {type.label}
-          </span>
-          <span className={cn("px-2.5 py-1 rounded-lg text-xs font-bold", label.bg, label.text)}>
-            {label.label}
-          </span>
-        </div>
-        {/* Score */}
-        <div className="absolute top-3 right-3 bg-jar-black/80 backdrop-blur-sm rounded-lg px-2.5 py-1 flex items-center gap-1.5">
-          <Shield className="w-3.5 h-3.5 text-jar-orange" />
-          <span className="text-xs font-bold text-white">{vehicle.inspectionScore}/100</span>
-        </div>
       </div>
 
       {/* Content */}

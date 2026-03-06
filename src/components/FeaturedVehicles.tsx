@@ -2,15 +2,17 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Car } from "lucide-react";
-import { vehicles } from "@/lib/vehicles";
+import { ArrowRight, Car, Loader2 } from "lucide-react";
+import { useVehicles } from "@/hooks/useVehicles";
 import { VehicleCard } from "@/components/VehicleCard";
 
 export function FeaturedVehicles() {
-  // Show 6 featured vehicles (mix of types)
+  const { vehicles, loading } = useVehicles();
+
+  // Show 6 featured vehicles (les plus récents d'abord)
   const featured = vehicles
     .filter((v) => v.available)
-    .sort((a, b) => b.inspectionScore - a.inspectionScore)
+    .sort((a, b) => b.year - a.year || b.price - a.price)
     .slice(0, 6);
 
   return (
@@ -39,19 +41,26 @@ export function FeaturedVehicles() {
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featured.map((vehicle, i) => (
-            <motion.div
-              key={vehicle.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.5 }}
-            >
-              <VehicleCard vehicle={vehicle} />
-            </motion.div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-16">
+            <Loader2 className="w-8 h-8 text-jar-orange animate-spin mb-3" />
+            <p className="text-jar-gray-light text-sm">Chargement des véhicules...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featured.map((vehicle, i) => (
+              <motion.div
+                key={vehicle.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+              >
+                <VehicleCard vehicle={vehicle} />
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -64,7 +73,7 @@ export function FeaturedVehicles() {
             className="group inline-flex items-center gap-2 bg-jar-orange text-jar-black font-bold px-8 py-3.5 rounded-xl hover:bg-jar-orange-hover hover:scale-[1.02] transition-all"
           >
             <Car className="w-5 h-5" />
-            Voir les {vehicles.length} véhicules disponibles
+            Voir {vehicles.filter((v) => v.available).length} véhicules disponibles
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>
